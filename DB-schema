@@ -1,0 +1,44 @@
+As root:
+-------------------------------------------------------------------
+create user 'hoi_app'@'%'identified by 'hoi_pwd';
+grant all privileges on *.* to 'hoi_app'@'%' with grant option;
+
+As hoi_app:
+--------------------------------------------------------------------
+create database hoi;
+use hoi;
+show tables;
+
+CREATE TABLE hoi_group (
+         group_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+         group_name VARCHAR(100) NOT NULL UNIQUE,
+         group_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+         group_deleted TIMESTAMP,
+         is_deleted INT
+       );
+
+CREATE TABLE hoi_user (
+         user_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+         group_id INT NOT NULL,
+         mobile_hash VARCHAR(1024) NOT NULL,
+         user_name VARCHAR(100) DEFAULT 'user',         
+         user_registered TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+         user_unregistered TIMESTAMP,
+         is_registered INT,
+         is_admin INT
+       );  
+       
+ALTER TABLE hoi_user
+ADD CONSTRAINT FK_GROUP_ID
+FOREIGN KEY(  group_id ) REFERENCES hoi_group(group_id);          
+
+CREATE INDEX group_name_index ON hoi_group(group_name);
+CREATE INDEX group_id_index ON hoi_user(group_id);
+CREATE INDEX mobile_hash_index ON hoi_user(mobile_hash);
+CREATE INDEX is_admin_index ON hoi_user(is_admin);
+
+CREATE TABLE hoi_message (
+	message_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	message VARCHAR(1024),
+	group_id INT	
+	);

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>Hoi</display-name>
+  
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+   	<welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+
+   <servlet>
+		<servlet-name>HoiServlet</servlet-name>
+		<servlet-class>com.intuit.txtweb.hoi.platform.HoiServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>HoiServlet</servlet-name>
+		<url-pattern>/HoiServlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>GoldPriceServlet</servlet-name>
+		<servlet-class>com.intuit.txtweb.hoi.platform.GoldPriceServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GoldPriceServlet</servlet-name>
+		<url-pattern>/GoldPriceServlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>BibleServlet</servlet-name>
+		<servlet-class>com.intuit.txtweb.hoi.platform.BibleServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>BibleServlet</servlet-name>
+		<url-pattern>/BibleServlet</url-pattern>
+	</servlet-mapping>
+</web-app>

@@ -1,0 +1,45 @@
+<project name="Hoi" default="deploy" >
+
+	<property environment="env"/>
+	<property name="tomcat.home" location="/Users/mkurian/OldLaptop/txtWeb/apache-tomcat-7.0.32"/>
+	<property name="build.dir" location="build"/>
+	<property name="classes.dir" location="${build.dir}/classes"/>
+	<property name="src.dir" location="src"/>
+	<property name="web.dir" location="WebContent"/>
+	<property name="tomcat.lib.dir" location="${tomcat.home}/lib"/>
+
+	<path id="classpath">
+		<fileset dir="${tomcat.lib.dir}">
+			<include name="servlet*.jar"/>
+		</fileset>
+		<fileset dir="${tomcat.lib.dir}">
+			<include name="mysql*.jar"/>
+		</fileset>			<fileset dir="${web.dir}/WEB-INF/lib">
+			<include name="jsoup*.jar"/>
+		</fileset>
+		<pathelement location="${classes.dir}"/>
+	</path>
+	<target name="compile">
+		<mkdir dir="${classes.dir}"/>
+		<javac destdir="${classes.dir}" classpathref="classpath">
+			<src path="${src.dir}"/>
+		</javac>
+	</target>
+	<target name="war" depends="compile">
+		<copy todir="${web.dir}/WEB-INF/classes">
+			<fileset dir="${classes.dir}" includes="**/*.*"/>
+		</copy>
+		<jar jarfile="${build.dir}/hoi.war">
+			<fileset dir="${web.dir}"/>
+		</jar> 
+	</target>
+
+	<target name="deploy" depends="war">
+		<copy file="${build.dir}/hoi.war" todir="${tomcat.home}/webapps"/>
+	</target>
+
+	<target name="clean">
+		<delete dir="${build.dir}"/>
+	</target>
+</project>
+
